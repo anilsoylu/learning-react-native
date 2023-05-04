@@ -1,12 +1,13 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import ColoredView1 from './ColoredView1';
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.view1} />
-      <View style={styles.view2} />
-      <View style={styles.view3} />
+      <ColoredView1 bgColor={'purple'} text="Hello" />
+      <ColoredView1 bgColor={'yellow'} text="Anıl" />
+      <ColoredView1 bgColor={'red'} />
     </SafeAreaView>
   );
 }
@@ -15,24 +16,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'brown',
-    flexDirection: 'row',
-  },
-
-  view1: {
-    width: 100,
-    height: 75,
-    backgroundColor: 'purple',
-  },
-
-  view2: {
-    width: 100,
-    height: 75,
-    backgroundColor: 'yellow',
-  },
-
-  view3: {
-    width: 100,
-    height: 75,
-    backgroundColor: 'red',
   },
 });
