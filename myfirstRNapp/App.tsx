@@ -1,12 +1,24 @@
 import React from 'react';
-import {Platform, Text, SafeAreaView, StyleSheet} from 'react-native';
+import {
+  Platform,
+  Dimensions,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+} from 'react-native';
 
 export default function App() {
+  console.log(Platform.OS, Dimensions.get('screen'));
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <Text style={[styles.text, styles.title]}>
         This is an {Platform.OS === 'ios' ? 'iOS' : 'Android'} app!
       </Text>
+      <Text style={styles.title}>
+        height: {Dimensions.get('screen').height}
+      </Text>
+      <Text style={styles.title}>width: {Dimensions.get('screen').width}</Text>
     </SafeAreaView>
   );
 }
