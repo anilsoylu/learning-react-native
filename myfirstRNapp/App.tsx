@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, Image} from 'react-native';
 
 const App = () => {
   return (
@@ -16,6 +16,14 @@ const App = () => {
         {'\n'}
         TypeScript Starter!{'\n'}
       </Text>
+      <Image
+        source={{
+          uri: 'https://reactnative.dev/img/tiny_logo.png',
+        }}
+        style={styles.image}
+        resizeMode="contain"
+        blurRadius={15}
+      />
     </SafeAreaView>
   );
 };
@@ -39,6 +47,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     backgroundColor: 'red',
+  },
+
+  image: {
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
   },
 });
 
