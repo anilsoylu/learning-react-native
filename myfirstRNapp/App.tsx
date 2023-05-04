@@ -1,61 +1,73 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-  FlatList,
-  RefreshControl,
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  RefreshControl,
+  Alert,
+  Dimensions,
 } from 'react-native';
 
-const App = () => {
-  const [posts, setPosts] = useState([]);
+export default function App() {
+  const [photos, setPhotos] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    fetch('https://jsonplaceholder.typicode.com/photos')
       .then(response => response.json())
-      .then(json => setPosts(json))
-      .catch(err => console.log(err));
+      .then(json => setPhotos(json))
+      .catch(error => console.error(error));
   }, []);
 
-  const _onRefresh = () => {
+  const onRefresh = () => {
     setRefreshing(true);
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    fetch('https://jsonplaceholder.typicode.com/photos')
       .then(response => response.json())
-      .then(json => setPosts(json))
+      .then(json => setPhotos(json))
       .catch(error => console.error(error))
       .finally(() => setRefreshing(false));
   };
 
   const renderItem = ({item}) => (
-    <View style={styles.post}>
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.body}>{item.body}</Text>
-    </View>
+    <TouchableOpacity onPress={() => handlePress(item)}>
+      <View style={styles.photo}>
+        <Image
+          source={{uri: item.url}}
+          style={styles.image}
+          resizeMode="contain"
+        />
+
+        <Text style={styles.title} numberOfLines={1}>
+          {item.title}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 
+  const handlePress = item => {
+    Alert.alert(
+      'Photo Info',
+      `Title: ${item.title}\nAlbum ID: ${item.albumId}`,
+    );
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <FlatList
-        data={posts}
+        data={photos}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
         contentContainerStyle={styles.list}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       />
-    </SafeAreaView>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -67,19 +79,28 @@ const styles = StyleSheet.create({
   list: {
     padding: 10,
   },
-  post: {
+  photo: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    marginVertical: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  image: {
+    width: Dimensions.get('window').width - 40,
+    height: Dimensions.get('window').height / 3,
+    borderRadius: 10,
+    marginBottom: 10,
   },
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  body: {
-    fontSize: 16,
+    fontSize: 14,
+    textAlign: 'center',
   },
 });
-
-export default App;
