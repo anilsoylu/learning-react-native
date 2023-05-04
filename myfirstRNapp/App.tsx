@@ -1,13 +1,22 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
-import ColoredView1 from './ColoredView1';
+import React, {useEffect} from 'react';
+import {Button, SafeAreaView, StyleSheet, Text} from 'react-native';
 
 export default function App() {
+  const [count, setCount] = React.useState(0);
+
+  useEffect(() => {
+    console.log('useEffect sadece count değiştiğinde çalışır');
+  }, [count]);
+
+  useEffect(() => {
+    console.log('useEffect sadece ilk renderda çalışır');
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
-      <ColoredView1 bgColor={'purple'} text="Hello" />
-      <ColoredView1 bgColor={'yellow'} text="Anıl" />
-      <ColoredView1 bgColor={'red'} />
+      <Text style={styles.text}>Count: {count}</Text>
+      <Button title="Increment" onPress={() => setCount(count + 1)} />
+      <Button title="Reset" onPress={() => setCount(0)} />
     </SafeAreaView>
   );
 }
@@ -16,5 +25,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'brown',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  text: {
+    color: 'white',
   },
 });
