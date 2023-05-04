@@ -1,24 +1,12 @@
 import React from 'react';
-import {
-  Platform,
-  Dimensions,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 
 export default function App() {
-  console.log(Platform.OS, Dimensions.get('screen'));
-
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={[styles.text, styles.title]}>
-        This is an {Platform.OS === 'ios' ? 'iOS' : 'Android'} app!
-      </Text>
-      <Text style={styles.title}>
-        height: {Dimensions.get('screen').height}
-      </Text>
-      <Text style={styles.title}>width: {Dimensions.get('screen').width}</Text>
+      <View style={styles.view1} />
+      <View style={styles.view2} />
+      <View style={styles.view3} />
     </SafeAreaView>
   );
 }
@@ -26,15 +14,21 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'brown',
   },
-  text: {
-    color: Platform.OS === 'ios' ? 'blue' : 'green',
+
+  view1: {
+    flex: 1,
+    backgroundColor: 'purple',
   },
-  title: {
-    fontSize: 14,
-    textAlign: 'center',
+
+  view2: {
+    flex: 2,
+    backgroundColor: 'yellow',
+  },
+
+  view3: {
+    flex: 2,
+    backgroundColor: 'red',
   },
 });
