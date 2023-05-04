@@ -5,43 +5,52 @@
  * @format
  */
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Alert,
-  Button,
+  FlatList,
+  RefreshControl,
   SafeAreaView,
   StyleSheet,
   Text,
-  TextInput,
+  View,
 } from 'react-native';
 
 const App = () => {
-  const [name, setName] = useState('Anıl');
+  const [posts, setPosts] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json())
+      .then(json => setPosts(json))
+      .catch(err => console.log(err));
+  }, []);
+
+  const _onRefresh = () => {
+    setRefreshing(true);
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json())
+      .then(json => setPosts(json))
+      .catch(error => console.error(error))
+      .finally(() => setRefreshing(false));
+  };
+
+  const renderItem = ({item}) => (
+    <View style={styles.post}>
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.body}>{item.body}</Text>
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        placeholder="What is your name?"
-        value={name}
-        onChangeText={text => setName(text)}
-        secureTextEntry={true}
-      />
-      <Text style={styles.text}>Text: {name}</Text>
-      {/* <Button
-        title="Press Me!"
-        onPress={() =>
-          Alert.alert(`Hello ${name} do you enjoy the tutorial`, '', [
-            {text: 'Yes', onPress: () => console.log('Yes Pressed')},
-            {text: 'No', onPress: () => console.log('No Pressed')},
-          ])
-        }
-      /> */}
-      <Button
-        title="Press Me!"
-        onPress={() =>
-          Alert.prompt(`Hello ${name}!`, 'How old are you?', text =>
-            console.log(`You are ${text} years old`),
-          )
+      <FlatList
+        data={posts}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+        contentContainerStyle={styles.list}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />
         }
       />
     </SafeAreaView>
@@ -51,29 +60,25 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightgray',
-    justifyContent: 'center',
+    backgroundColor: '#fff',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-
-  textInput: {
-    width: 200,
-    height: 50,
-    borderColor: 'gray',
-    backgroundColor: 'white',
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 7,
+  list: {
+    padding: 10,
   },
-
-  text: {
-    fontSize: 20,
+  post: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  title: {
+    fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 10,
+    marginBottom: 5,
   },
-
-  button: {
-    marginTop: 10,
+  body: {
+    fontSize: 16,
   },
 });
 
