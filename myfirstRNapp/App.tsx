@@ -15,20 +15,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'brown',
+    flexDirection: 'row',
   },
 
   view1: {
-    flex: 1,
+    width: 100,
+    height: 75,
     backgroundColor: 'purple',
   },
 
   view2: {
-    flex: 2,
+    width: 100,
+    height: 75,
     backgroundColor: 'yellow',
   },
 
   view3: {
-    flex: 2,
+    width: 100,
+    height: 75,
     backgroundColor: 'red',
   },
 });
