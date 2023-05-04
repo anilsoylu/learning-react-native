@@ -6,7 +6,7 @@
  */
 
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, Text, TextInput} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text, TextInput} from 'react-native';
 
 const App = () => {
   const [name, setName] = useState('Anıl');
@@ -20,6 +20,7 @@ const App = () => {
         secureTextEntry={true}
       />
       <Text style={{marginTop: 10}}>Text: {name}</Text>
+      <Button title="Press Me!" onPress={() => console.log('Button Pressed')} />
     </SafeAreaView>
   );
 };
@@ -40,6 +41,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 7,
+  },
+
+  button: {
+    marginTop: 10,
   },
 });
 
