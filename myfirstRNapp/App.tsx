@@ -6,7 +6,16 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, Image} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  Image,
+  View,
+  TouchableHighlight,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 
 const App = () => {
   return (
@@ -16,14 +25,31 @@ const App = () => {
         {'\n'}
         TypeScript Starter!{'\n'}
       </Text>
-      <Image
-        source={{
-          uri: 'https://reactnative.dev/img/tiny_logo.png',
-        }}
-        style={styles.image}
-        resizeMode="contain"
-        blurRadius={15}
-      />
+      <TouchableOpacity onPress={() => console.log('image pressed')}>
+        <Image
+          source={{
+            uri: 'https://reactnative.dev/img/tiny_logo.png',
+          }}
+          style={styles.image}
+          resizeMode="contain"
+          blurRadius={15}
+        />
+      </TouchableOpacity>
+      <TouchableHighlight onPress={() => console.log('pressed')}>
+        <View style={{width: '100%', height: 75, backgroundColor: 'cyan'}}>
+          <Text>Hello World!</Text>
+        </View>
+      </TouchableHighlight>
+      <TouchableOpacity onPress={() => console.log('pressed')}>
+        <View style={{width: '100%', height: 75, backgroundColor: 'red'}}>
+          <Text>Hello World!</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableWithoutFeedback onPress={() => console.log('pressed')}>
+        <View style={{width: '100%', height: 75, backgroundColor: 'yellow'}}>
+          <Text>Hello World!</Text>
+        </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };
