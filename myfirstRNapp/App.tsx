@@ -6,7 +6,14 @@
  */
 
 import React, {useState} from 'react';
-import {Button, SafeAreaView, StyleSheet, Text, TextInput} from 'react-native';
+import {
+  Alert,
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+} from 'react-native';
 
 const App = () => {
   const [name, setName] = useState('Anıl');
@@ -19,8 +26,24 @@ const App = () => {
         onChangeText={text => setName(text)}
         secureTextEntry={true}
       />
-      <Text style={{marginTop: 10}}>Text: {name}</Text>
-      <Button title="Press Me!" onPress={() => console.log('Button Pressed')} />
+      <Text style={styles.text}>Text: {name}</Text>
+      {/* <Button
+        title="Press Me!"
+        onPress={() =>
+          Alert.alert(`Hello ${name} do you enjoy the tutorial`, '', [
+            {text: 'Yes', onPress: () => console.log('Yes Pressed')},
+            {text: 'No', onPress: () => console.log('No Pressed')},
+          ])
+        }
+      /> */}
+      <Button
+        title="Press Me!"
+        onPress={() =>
+          Alert.prompt(`Hello ${name}!`, 'How old are you?', text =>
+            console.log(`You are ${text} years old`),
+          )
+        }
+      />
     </SafeAreaView>
   );
 };
@@ -41,6 +64,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 7,
+  },
+
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 10,
   },
 
   button: {
