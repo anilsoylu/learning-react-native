@@ -5,51 +5,21 @@
  * @format
  */
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  Image,
-  View,
-  TouchableHighlight,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView, StyleSheet, Text, TextInput} from 'react-native';
 
 const App = () => {
+  const [name, setName] = useState('Anıl');
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>
-        Welcome to <Text style={styles.customText}>React Native</Text>
-        {'\n'}
-        TypeScript Starter!{'\n'}
-      </Text>
-      <TouchableOpacity onPress={() => console.log('image pressed')}>
-        <Image
-          source={{
-            uri: 'https://reactnative.dev/img/tiny_logo.png',
-          }}
-          style={styles.image}
-          resizeMode="contain"
-          blurRadius={15}
-        />
-      </TouchableOpacity>
-      <TouchableHighlight onPress={() => console.log('pressed')}>
-        <View style={{width: '100%', height: 75, backgroundColor: 'cyan'}}>
-          <Text>Hello World!</Text>
-        </View>
-      </TouchableHighlight>
-      <TouchableOpacity onPress={() => console.log('pressed')}>
-        <View style={{width: '100%', height: 75, backgroundColor: 'red'}}>
-          <Text>Hello World!</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableWithoutFeedback onPress={() => console.log('pressed')}>
-        <View style={{width: '100%', height: 75, backgroundColor: 'yellow'}}>
-          <Text>Hello World!</Text>
-        </View>
-      </TouchableWithoutFeedback>
+      <TextInput
+        style={styles.textInput}
+        placeholder="What is your name?"
+        value={name}
+        onChangeText={text => setName(text)}
+        secureTextEntry={true}
+      />
+      <Text style={{marginTop: 10}}>Text: {name}</Text>
     </SafeAreaView>
   );
 };
@@ -57,28 +27,19 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'lightgray',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
-  text: {
-    fontSize: 16,
-    color: 'red',
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-
-  customText: {
-    fontSize: 16,
-    color: 'yellow',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    backgroundColor: 'red',
-  },
-
-  image: {
-    width: 100,
-    height: 100,
-    alignSelf: 'center',
+  textInput: {
+    width: 200,
+    height: 50,
+    borderColor: 'gray',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 7,
   },
 });
 
